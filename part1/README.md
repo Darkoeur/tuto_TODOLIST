@@ -129,8 +129,8 @@ imports: [
 ],
 ...
 providers: [
- ...,
- { provide: ZetaPushClientConfig, useValue: {sandboxId: '<yourId>'} }
+    ...,
+    { provide: ZetaPushClientConfig, useValue: {sandboxId: '<yourId>'} }
 ]
 ```
 
@@ -147,7 +147,7 @@ export class HomePage implements OnInit {
 
         constructor(
             public navCtrl: NavController,
-						public alertCtrl: AlertController,
+            public alertCtrl: AlertController,
             private platform: Platform,
             private zpConnection: ZetaPushConnection) {}
 
@@ -159,7 +159,7 @@ export class HomePage implements OnInit {
                     });
                 });
             }
-    }
+        }
 ```  
 À ce stade il est d'ores et déjà possible de tester l'application client avec la commande `> ionic serve` qui la déploie à l'adresse `http://localhost:8100/`.
 
@@ -168,35 +168,36 @@ Pour gagner du temps voici le template qui permettra de présenter les notes de 
 ```html
 <!-- en-tête de notre application -->
 <ion-header>
-  <ion-navbar color="primary" no-border-bottom>
-    <ion-title>
-      <ion-icon name="albums"></ion-icon> My Todo List
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary" no-border-bottom>
+        <ion-title>
+            <ion-icon name="albums"></ion-icon>
+            My Todo List
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-	<!-- chaque note sera représentée de la sorte : -->
-  	<ion-card *ngFor="let note of notes">
-        <ion-card-content>
-          <p>{{note.text}}</p>
-        </ion-card-content>
-        <ion-row padding>
-          <ion-col>
-            <button (click)="userDelete(note)" ion-button clear small color="dark" icon-only>
-              <ion-icon name="trash"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-    </ion-card>
-	</ion-list>
+    <ion-list>
+        <!-- chaque note sera représentée de la sorte : -->
+        <ion-card *ngFor="let note of notes">
+            <ion-card-content>
+                <p>{{note.text}}</p>
+            </ion-card-content>
+            <ion-row padding>
+                <ion-col>
+                    <button (click)="userDelete(note)" ion-button clear small color="dark" icon-only>
+                        <ion-icon name="trash"></ion-icon>
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </ion-list>
 
-		<!-- on propose à l'utilisateur trois boutons -->
+    <!-- on propose à l'utilisateur trois boutons -->
     <button round (click)="userRefresh()" id="refreshButton" class="actionButtons" color="dark" ion-button icon-only>
-      <ion-icon name="refresh"></ion-icon>
+        <ion-icon name="refresh"></ion-icon>
     </button>
-	<button round (click)="userAddNote()" id="addButton" class="actionButtons" color="primary" ion-button icon-only>
+    <button round (click)="userAddNote()" id="addButton" class="actionButtons" color="primary" ion-button icon-only>
         <ion-icon name="add"></ion-icon>
     </button>
     <button round (click)="userClear()" id="clearButton" class="actionButtons" color="danger" ion-button icon-only>
