@@ -88,14 +88,14 @@ macroscript deleteNotes (array ids) {
 
 	stacks.remove({stack : 'TODO', guids: ids});
 
-// No need indicating a return channel, nothing to return !
-} return {}
+} return {} on channel __selfName
 ```
 ```javascript
 macroscript reset () {
 
 	stacks.purge({stack : 'TODO'});
 
+// we won't need the server response after calling the reset macro
 } return {}
 ```
 
@@ -290,7 +290,6 @@ Bonne nouvelle : c'est presque terminé ! Il ne reste désormais plus qu'à conf
 
 ```javascript
 ...
-import { NavController, AlertController, Platform } from 'ionic-angular';
 import { Note, NotesApi } from '../../api/notes-api.service';
 ...
 

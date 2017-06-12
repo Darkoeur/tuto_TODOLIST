@@ -24,8 +24,7 @@ macroscript deleteNotes (array ids) {
 
 	stacks.remove({stack : 'TODO', guids: ids});
 
-// No need indicating a return channel, nothing to return !
-} return {}
+} return {} on channel __selfName
 
 macroscript reset () {
 

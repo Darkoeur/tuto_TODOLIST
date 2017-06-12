@@ -7,6 +7,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import { ZetaPushClientConfig, ZetaPushModule } from 'zetapush-angular';
+import { NotesApiProvider } from '../api/notes-api.service';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -14,6 +17,7 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
+    ZetaPushModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -24,7 +28,9 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    NotesApiProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ZetaPushClientConfig, useValue: {sandboxId: 'Lg9ZWAt9'} }
   ]
 })
 export class AppModule {}
