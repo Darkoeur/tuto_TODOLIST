@@ -7,3 +7,8 @@ Each part of the tutorial matches a folder *partX/* including two sub-folders, *
 
 * Part I : Basics  
 *Server configuration, Ionic client, add, delete, list notes*
+
+## ZetaPush description ##
+
+ZetaPush provides many out of the box services such as authentication or file gestion to save time on development.  
+All you need to start is a free sandbox which will allow you to deploy your code & services.
