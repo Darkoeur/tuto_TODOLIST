@@ -308,10 +308,10 @@ export class HomePage implements OnInit {
 
 		// we set listeners to handle server response
 		api.onGetNotes.subscribe((response) => {
-			this.notes = [];
-		    response['notes'].forEach(note => {
-				this.notes.push(note);
-			});
+            this.notes = [];
+            response['notes'].forEach(note => {
+                this.notes.push(note);
+            });
 		});
 
 		api.onPushNote.subscribe((response) => {
