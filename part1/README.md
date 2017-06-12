@@ -279,10 +279,10 @@ Reprenons le code du fichier *src/app/app.module.ts* pour y intégrer l'API nouv
 ```javascript
 import { NotesApiProvider } from '../api/notes-api.service';
 ...
-	providers: [
-		...
-		NotesApiProvider
-	]
+providers: [
+    ...
+	NotesApiProvider
+]
 ...
 ```
 
