@@ -77,7 +77,7 @@ macroscript getNotes () {
 	var rawNotes = query.result.content;
 	var notes = [];
 	for note in rawNotes {
-			var formated = {id: note.guid, text: id.data.text};
+			var formated = {id: note.guid, text: note.data.text};
 			notes = list:add(notes, formated);
 	}
 
@@ -110,8 +110,8 @@ Le client sera réalisé sous la forme d'une application Ionic, mais il serait a
 
 Crééons le projet et configurons le :    
 ```bash
-> ionic start TodoClient blank  
-> cd TodoClient
+> ionic start <APPNAME> blank --v2
+> cd <APPNAME>
 > cordova platform add android
 > npm install zetapush-js --save
 > npm install zetapush-angular --save

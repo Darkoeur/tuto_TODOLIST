@@ -1,0 +1,34 @@
+macroscript pushNote (string content = "Nothing") {
+
+	var insertion = stacks.push({stack : 'TODO', data : {text:content}});
+	var note = {
+		id: insertion.guid,
+		text: content
+	};
+
+} return {note} on channel __selfName
+
+macroscript getNotes () {
+
+	var query = stacks.list({stack : 'TODO'});
+	var rawNotes = query.result.content;
+	var notes = [];
+	for note in rawNotes {
+			var formated = {id: note.guid, text: note.data.text};
+			notes = list:add(notes, formated);
+	}
+
+} return {notes} on channel __selfName
+
+macroscript deleteNotes (array ids) {
+
+	stacks.remove({stack : 'TODO', guids: ids});
+
+// No need indicating a return channel, nothing to return !
+} return {}
+
+macroscript reset () {
+
+	stacks.purge({stack : 'TODO'});
+
+} return {}
