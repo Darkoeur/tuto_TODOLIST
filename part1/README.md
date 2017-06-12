@@ -124,13 +124,13 @@ Importons à présent ZetaPush dans notre application en modifiant le fichier *s
 import { ZetaPushClientConfig, ZetaPushModule } from 'zetapush-angular';
 ...
 imports: [
-		...,
-		ZetaPushModule
+	...,
+	ZetaPushModule
 ],
 ...
 providers: [
-		...,
-		{ provide: ZetaPushClientConfig, useValue: {sandboxId: '<yourId>'} }
+	...,
+	{ provide: ZetaPushClientConfig, useValue: {sandboxId: '<yourId>'} }
 ]
 ```
 
