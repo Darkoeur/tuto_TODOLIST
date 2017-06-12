@@ -163,6 +163,8 @@ export class HomePage implements OnInit {
 ```  
 À ce stade il est d'ores et déjà possible de tester l'application client avec la commande `> ionic serve` qui la déploie à l'adresse `http://localhost:8100/`.
 
+### Code ###  
+
 Pour gagner du temps voici le template qui permettra de présenter les notes de notre TODO liste, il ne tient qu'à vous de le modifier en vous basant sur les [composants ionic](https://ionicframework.com/docs/components/) et votre imagination personnelle. Il correspond au contenu du fichier *src/pages/home/home.html*.
 
 ```html
