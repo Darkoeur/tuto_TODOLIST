@@ -43,7 +43,7 @@ Il suffit de remplacer `service auth = simple(__default);` par `service auth = w
 **L'authentification weak consiste en une authentification anonyme, le client se connecte à ZetaPush sans identifiant, un token lui est transmis en retour qu'il doit alors mémoriser. La perte de ce token équivaudrait inévitablement à la perte des données qui lui sont associées.**
 
 Notre TODO liste impliquera nécessairement un stockage côté serveur. Pour cela nous utiliserons le service [Data Stacks](https://ref.zpush.io/#it_stack) bien qu'un Generic Data Access puisse également faire l'affaire, la simplicité d'utilisation des Stacks convient parfaitement à notre usage :)
-Dans *recipe.zms*, déclarez le service ainsi : `service stacks = stack(__defaut);`
+Dans *recipe.zms*, déclarez le service ainsi : `service stacks = stack(__default);`
 
 Dans le fichier *zms.user.properties*, mettre à *true* l'upload de code.
 Déployons ensuite nos services !  
@@ -52,13 +52,13 @@ Déployons ensuite nos services !
 ### Macroscripts ###
 Suite au succès du déploiement, écrivons les macros qui vont nous autoriser à interagir avec les services.
 
-Un macroscript welcome est déjà défini dans le fichier *welcome.zms*, qu'il est possible de tester avec le bouton Play orange, en oubliant pas de cliquer à l'intérieur du code de la macro. L'intérêt est limité, supprimons la et écrivons à présent quatre macros;
+Un macroscript welcome est déjà défini dans le fichier *src/welcome.zms*, qu'il est possible de tester avec le bouton Play orange, en oubliant pas de cliquer à l'intérieur du code de la macro. L'intérêt est limité, supprimons la et écrivons à présent quatre macros;
 * **pushNote(string content)**
 * **getNotes()**
 * **deleteNotes(array ids)**
 * **reset()**
 
-Le nom est suffisamment explicite, passons sans plus attendre au code du fichier *welcome.zms* :
+Le nom est suffisamment explicite, passons sans plus attendre au code du fichier *src/welcome.zms* :
 ```javascript
 macroscript pushNote (string content = "Nothing") {
 
@@ -110,7 +110,7 @@ Le client sera réalisé sous la forme d'une application Ionic, mais il serait a
 
 Crééons le projet et configurons le :    
 ```bash
-> ionic start <APPNAME> blank --v2
+> ionic start <APPNAME> blank --type=ionic-angular
 > cd <APPNAME>
 > cordova platform add android
 > npm install zetapush-js --save

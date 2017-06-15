@@ -30,7 +30,7 @@ import { NotesApiProvider } from '../api/notes-api.service';
     SplashScreen,
     NotesApiProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    { provide: ZetaPushClientConfig, useValue: {sandboxId: '<sandboxId>'} }
+    { provide: ZetaPushClientConfig, useValue: {sandboxId: '<yourSandboxId>'} }
   ]
 })
 export class AppModule {}
