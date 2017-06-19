@@ -1,0 +1,37 @@
+<!-- en-tête de notre application -->
+<ion-header>
+    <ion-navbar color="primary" no-border-bottom>
+        <ion-title>
+            <ion-icon name="albums"></ion-icon>
+            My Todo List
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <!-- chaque note sera représentée de la sorte : -->
+        <ion-card *ngFor="let note of notes" (click)="userSelect(note)" [ngClass]="{faded: isSelected(note)}">
+            <ion-card-content>
+                <ion-list>
+                    <ion-item>
+                        <p>{{note.text}}</p>
+                        <ion-icon item-end [ngClass]="{notSelected: !isSelected(note)}" name="trash"></ion-icon>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </ion-list>
+
+    <!-- on propose à l'utilisateur trois boutons -->
+    <button round (click)="userRefresh()" id="refreshButton" class="actionButtons" color="dark" ion-button icon-only>
+        <ion-icon name="refresh"></ion-icon>
+    </button>
+    <button round (click)="userAddNote()" id="addButton" class="actionButtons" color="primary" ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+    </button>
+    <button round (click)="userClear()" id="clearButton" class="actionButtons" color="danger" ion-button icon-only>
+        <ion-icon name="trash"></ion-icon>
+    </button>
+
+</ion-content>

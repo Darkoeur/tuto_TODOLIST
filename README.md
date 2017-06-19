@@ -8,8 +8,8 @@ Each part of the tutorial matches a folder *partX/* including two sub-folders, *
 * Part I : Basics  
 *Server configuration, Ionic client, add, delete, list notes*
 
-* Part II : More functionnalities
-*Allow to check as done notes, and delete multiple notes at once*
+* Part II : Better code and functionnalities  
+*Server improvements, service use, delete multiple notes at once*
 
 ## ZetaPush description ##
 

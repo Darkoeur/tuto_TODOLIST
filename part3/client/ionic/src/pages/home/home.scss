@@ -1,0 +1,19 @@
+.actionButtons {
+    position: fixed;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+}
+
+#clearButton { bottom: 20px; }
+#addButton { bottom: 90px; }
+#refreshButton { bottom: 160px; }
+
+.notSelected {
+    visibility: hidden;
+}
+
+.faded {
+    opacity: 0.2;
+    transition: 0.3s;
+}
