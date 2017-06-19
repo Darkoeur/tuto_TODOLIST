@@ -32,7 +32,7 @@ import { NotesApiProvider } from '../api/notes-api.service';
     NotesApiProvider,
     NotesManager,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    { provide: ZetaPushClientConfig, useValue: {sandboxId: 'siE7g4bz'} }
+    { provide: ZetaPushClientConfig, useValue: {sandboxId: '<yourSandboxId>'} }
   ]
 })
 export class AppModule {}

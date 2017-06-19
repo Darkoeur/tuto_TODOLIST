@@ -72,22 +72,31 @@ export class HomePage implements OnInit {
         }
 
         userClear() {
-            this.notesManager.resetNotes();
-            this.notes = [];
+            if(this.selection.length > 0){
+                var ids = this.selection.map(note => note.id);
+                this.notesManager.deleteNotes(ids);
+            } else {
+                this.notesManager.resetNotes();
+                this.notes = [];
+            }
         }
 
         userRefresh() {
             this.notesManager.getNotes();
         }
 
-        userDelete(deleted : Note) {
-            var ids = [];
-            ids.push(deleted.id);
-            this.notesManager.deleteNotes(ids);
+        userSelect(note: Note){
+
+            if(this.isSelected(note)){
+                this.selection.splice(this.selection.indexOf(note), 1);
+            } else {
+                this.selection.push(note);
+            }
+
         }
 
-        userSelect(note: Note){
-            this.selection.push(note);
+        isSelected(note: Note): boolean {
+            return (this.selection.indexOf(note) === -1);
         }
 
 }

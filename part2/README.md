@@ -1,5 +1,5 @@
 # Réalisation d'une TODO liste avec ZetaPush #
-*~ 20 minutes  
+*~ 15 minutes  
 Concepts : service, stack, authentification*
 
 ## Introduction ##
@@ -60,6 +60,8 @@ Faisons le bilan de l'état actuel du composant *HomePage*.
 * Enfin suite aux actions de l'utilisateur on effectue des appels à NotesApi.
 
 À présent on va sortir toute cette logique du composant *HomePage*, pour l'attribuer à notre service nouvellement créé : *NotesManager*.
+
+### NotesManager, pour un code plus propre ###
 
 Voici le code de *src/providers/notes-manager.ts* que je détaillerai juste après.
 
@@ -224,3 +226,73 @@ export class HomePage implements OnInit {
 Beaucoup plus clair non ? Un seul Observable à gérer et des fonctions encore plus simples qui ne nécessitent pas la connaissance de l'API.
 Par exemple `this.notesApi.pushNote({content:data.text});` devient `this.notesManager.pushNote(data.text);`.  
 Les *console.log* permettent de retracer dans la console du navigateur le fonctionnement de l'application et aident à la compréhension.
+
+### Ajout de fonctionnalité ###
+
+Ajoutons un attribut `selection: Array<Note> = [];` au composant *HomePage*, et créons deux fonctions pour respectivement sélectionner une note et savoir si une note est sélectionnée.
+
+```javascript
+userSelect(note: Note){
+
+    if(this.isSelected(note)){
+        this.selection.splice(this.selection.indexOf(note), 1);
+    } else {
+        this.selection.push(note);
+    }
+
+}
+
+isSelected(note: Note): boolean {
+    return (this.selection.indexOf(note) === -1);
+}
+```
+
+Puis modifions la fonction existante *userClear()* pour changer son comportement : réinitialisation de la todo liste seulement si aucune note sélectionnée, sinon suppression de toutes les notes sélectionnées.
+
+```javascript
+userClear() {
+    if(this.selection.length > 0){
+        var ids = this.selection.map(note => note.id);
+        this.notesManager.deleteNotes(ids);
+    } else {
+        this.notesManager.resetNotes();
+        this.notes = [];
+    }
+}
+```
+
+Côté javascript c'est fini, il ne reste plus qu'à modifier le HTML/CSS pour pouvoir en profiter :)
+```html
+<!-- fichier home.html -->
+...
+<ion-card *ngFor="let note of notes" (click)="userSelect(note)" [ngClass]="{faded: isSelected(note)}">
+    <ion-card-content>
+        <ion-list>
+            <ion-item>
+                <p>{{note.text}}</p>
+                <ion-icon item-end [ngClass]="{notSelected: !isSelected(note)}" name="trash"></ion-icon>
+            </ion-item>
+        </ion-list>
+    </ion-card-content>
+</ion-card>
+...
+```
+
+```css
+/* fichier home.scss */
+
+...
+
+.notSelected {
+    visibility: hidden;
+}
+
+.faded {
+    opacity: 0.2;
+    transition: 0.3s;
+}
+
+```
+
+
+Et voilà ! Désormais il est possible de sélectionner des notes et de supprimer la sélection. On pourra réutiliser ce principe de sélection pour d'autres fin, qui feront l'objet des prochaines parties de ce tutoriel.

@@ -11,17 +11,15 @@
 <ion-content>
     <ion-list>
         <!-- chaque note sera représentée de la sorte : -->
-        <ion-card *ngFor="let note of notes">
+        <ion-card *ngFor="let note of notes" (click)="userSelect(note)" [ngClass]="{faded: isSelected(note)}">
             <ion-card-content>
-                <p>{{note.text}}</p>
+                <ion-list>
+                    <ion-item>
+                        <p>{{note.text}}</p>
+                        <ion-icon item-end [ngClass]="{notSelected: !isSelected(note)}" name="trash"></ion-icon>
+                    </ion-item>
+                </ion-list>
             </ion-card-content>
-            <ion-row padding>
-                <ion-col>
-                    <button (click)="userDelete(note)" ion-button clear small color="dark" icon-only>
-                        <ion-icon name="trash"></ion-icon>
-                    </button>
-                </ion-col>
-            </ion-row>
         </ion-card>
     </ion-list>
 
