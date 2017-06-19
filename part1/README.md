@@ -13,7 +13,7 @@ Dans un premier temps nous allons nous concentrer sur un ensemble restreint de p
 * supprimer une note
 * supprimer toutes les notes
 
-### Prérequis ###
+## Prérequis ##
 
 Dans ce tutoriel, nous avons besoin d'*Eclipse*, d'*Angular* et d'*Ionic 2* donc veuillez les installer si nécessaire.
 
