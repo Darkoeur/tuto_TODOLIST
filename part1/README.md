@@ -11,7 +11,7 @@ Une TODO liste est un exemple parfait pour faire ses premiers pas avec ZetaPush,
 Dans un premier temps nous allons nous concentrer sur un ensemble restreint de possibilités :
 * ajouter une note
 * supprimer une note
-* supprimer toutes les notes
+* supprimer toutes les notes  
 
 ## Prérequis ##
 
