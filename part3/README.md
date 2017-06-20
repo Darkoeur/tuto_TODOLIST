@@ -8,24 +8,24 @@ Cette partie sera l'objet d'une modification majeure : la façon de s'authentifi
 
 ## Pré-requis ##
 
-En considérant la partie 2 comme réalisée, pour cette seconde partie il vous suffit juste de reprendre votre projet.
+En considérant la partie 2 comme réalisée, pour cette troisième partie il vous suffit juste de reprendre votre projet.
 Rien de nouveau à installer ou à configurer.  
 
-Attention, dans cette partie certains imports ne seront pas précisés explicitement, notamment dans le cas simple où l'on se sert d'une instance d'un controleur, par exemple LoadingController.
+Attention, dans cette partie certains imports ne seront pas précisés explicitement, notamment dans le cas simple où l'on se sert d'une instance d'un controleur, par exemple LoadingController. Le but étant de progressivement se concentrer sur les modifications propres au serveur.  
 Si votre IDE supporte TypeScript il se peut que les imports manquants vous soient signalés.
 
 ## Côté Client ##
 
 Une page avec un formulaire login/password sera présentée à l'utilisateur.
-A la réception de ce formulaire on tente de se connecter avec les identifiants donnés. Si cela échoue, on va se connecter en anonyme pour pouvoir créer le compte. Puis l'on va retenter de se connecter en authentification simple, ce qui devrait réussir.
+À la réception de ce formulaire on tente de se connecter avec les identifiants donnés. Si cela échoue, on va se connecter en anonyme pour pouvoir créer le compte. Puis l'on va retenter de se connecter en authentification simple, ce qui devrait réussir.
 
-*Pour notre usage il serait possible de mémoriser les identifiants dans le localStorage du navigateur, mais on ne pourrait alors pas se connecter avec différents comptes et observer que les todolistes sont propres à chaque personne. Aucune déconnexion n'est prévue.*
+*Pour notre usage il serait possible de mémoriser les identifiants dans le localStorage du navigateur pour outrepasser la page de connexion.*
 
 `> ionic generate page door-page`
 
 Le composant *src/pages/door-page/door-page.ts* aura un rôle de page de garde de l'application.
 
-Puis l'on devra :
+Une fois généré, il faudra :
 * importer *DoorPage* dans *AppModule*
 * l'ajouter aux *declarations* du module
 * l'ajouter aux *entryComponents* du module
@@ -119,7 +119,7 @@ Pour l'utilisateur final tout ce fonctionnement d'authentification simple et ano
 
 ## Côté Serveur ##
 
-Une première modification à effectuer une fois sous Eclipse est le mode d'authentification, ajoutez un nouveau service avec la ligne `service auth = simple(__default);`, juste en dessous de notre service d'authentification weak, dans *recipe.zms*. On aura donc de manière de s'authentifier, une façon anonyme et une façon traditionnelle avec login/mot de passe.
+Une première modification à effectuer une fois sous Eclipse est le mode d'authentification, ajoutez un nouveau service avec la ligne `service auth = simple(__default);`, juste en dessous de notre service d'authentification weak, dans *recipe.zms*. On aura donc deux manière de s'authentifier, une façon anonyme et une façon traditionnelle avec login/mot de passe.
 
 Au déploiement (fusée rouge), nous allons créer un utilisateur. Pour cela, il suffit de créer un fichier *init.zms* au même endroit que le fichier *recipe.zms*, autrement dit à la racine du projet.
 
@@ -149,12 +149,11 @@ macroscript create(string login, string password) {
 
 ```
 
-On n'oublie pas de déployer le code de la macro grâce à l'icône avec quatres carrés, et voilà, on a fini du côté du serveur !
+On n'oublie pas de déployer le code de la macro grâce à l'icône avec quatre carrés, et voilà, on a fini du côté du serveur !
 
 ## Côté Client ##
 
-Jetez tout d'abord un coup d'oeil au fichier *api/notes-api.service.ts*. Objectif de cette partie : faire une api qu'on nommera *users-api.service.ts* et qui permettra
-(pour l'instant) uniquement d'appeler la macro de création de compte faite précédemment.
+Jetez tout d'abord un coup d'oeil au fichier *api/notes-api.service.ts*. Objectif de cette partie : faire une api qu'on nommera *users-api.service.ts* et qui permettra (pour l'instant) uniquement d'appeler la macro de création de compte faite précédemment.
 
 ```javascript
 
@@ -224,7 +223,6 @@ export class DoorPage {
     constructor(private usersHandler: UsersHandler, ...) { }
 
     ...
-
 
       submit(): void {
 
@@ -297,12 +295,12 @@ export class DoorPage {
 ```
 
 Voilà ! Et comme vous l'aurez constaté on gère même le cas où une erreur survient lors de la création du compte !
-Cette partie peut-paraître un peu longue mais ce qu'il est intéressant d'observer est la proportion de code client par rapport
-à la proportion de code serveur.  
+Cette partie peut paraître un peu longue mais il est intéressant d'observer la proportion de code client par rapport
+à la proportion de code serveur, et ce que facilite Zetapush.  
 De surcroît, on a pu revenir sur une décision assez fondamentale (comment s'authentifier) et cela ne change strictement rien du point
 de vue de la gestion des notes.
 
-Petit détail mais non-négligeable, pensez à changer le **ngOnInit()** de *HomePage* ;)
+Petit détail mais qui a son importance, pensez à changer le **ngOnInit()** de *HomePage* ;)
 
 ```javascript
 ionViewDidEnter(): void {
