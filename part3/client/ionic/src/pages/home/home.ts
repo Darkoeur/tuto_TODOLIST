@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, AlertController, Platform } from 'ionic-angular';
 import { ZetaPushConnection } from 'zetapush-angular';
 import { NotesManager } from '../../providers/notes-manager';
@@ -9,7 +9,7 @@ import { Note } from '../../api/notes-api.service';
   templateUrl: 'home.html',
   providers: [NotesManager]
 })
-export class HomePage implements OnInit {
+export class HomePage {
 
     notes: Array<Note>;
     selection: Array<Note>;
@@ -21,8 +21,6 @@ export class HomePage implements OnInit {
         private zpConnection: ZetaPushConnection,
         private notesManager: NotesManager) {
 
-            this.selection = [];
-
             this.notesManager.notes.subscribe(
                 notes => {
                     console.log('Well received captain ! ', notes);
@@ -33,13 +31,13 @@ export class HomePage implements OnInit {
 
         }
 
-        ngOnInit(): void {
-            this.platform.ready().then(() => {
-                this.zpConnection.connect().then(() => {
-                    // getting notes from server after connection
-                    this.notesManager.getNotes();
-                });
-            });
+        ionViewDidEnter(): void {
+            this.selection = [];
+            this.notesManager.getNotes();
+        }
+
+        ionViewCanLeave(): boolean{
+            return true;
         }
 
         // functions user will trigger with buttons
@@ -96,7 +94,7 @@ export class HomePage implements OnInit {
         }
 
         isSelected(note: Note): boolean {
-            return (this.selection.indexOf(note) === -1);
+            return (this.selection.indexOf(note) !== -1);
         }
 
 }

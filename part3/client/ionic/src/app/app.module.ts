@@ -11,6 +11,7 @@ import { DoorPage } from '../pages/door/door';
 import { ZetaPushClientConfig, ZetaPushModule } from 'zetapush-angular';
 import { NotesManager } from '../providers/notes-manager';
 import { NotesApiProvider } from '../api/notes-api.service';
+import { UsersApiProvider } from '../api/users-api.service';
 
 @NgModule({
   declarations: [
@@ -33,9 +34,10 @@ import { NotesApiProvider } from '../api/notes-api.service';
     StatusBar,
     SplashScreen,
     NotesApiProvider,
+    UsersApiProvider,
     NotesManager,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    { provide: ZetaPushClientConfig, useValue: {sandboxId: } }
+    { provide: ZetaPushClientConfig, useValue: {sandboxId: '7gN79Qmz'} }
   ]
 })
 export class AppModule {}
