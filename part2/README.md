@@ -243,7 +243,7 @@ userSelect(note: Note){
 }
 
 isSelected(note: Note): boolean {
-    return (this.selection.indexOf(note) === -1);
+    return (this.selection.indexOf(note) !== -1);
 }
 ```
 
