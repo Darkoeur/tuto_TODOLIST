@@ -1,0 +1,4 @@
+auth.memauth_createUser({
+	login: "gaspard",
+	password: "01011970"
+});

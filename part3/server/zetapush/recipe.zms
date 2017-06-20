@@ -9,8 +9,10 @@ recipe com.zetapush.tutorials.todolist.verification 1.0.0;
 const WELCOME_MESSAGE = @com.zetapush.tutorials.todolist.verification.welcomeMessage;
 
 
+service authAnonymous = weak(__default);
+
 /** a simple authentication service */
-service auth = weak(__default);
+service auth = simple(__default);
 
 /** our code is run by this service */
 service code = macro(__default) for 'src';
