@@ -8,8 +8,11 @@ Each part of the tutorial matches a folder *partX/* including two sub-folders, *
 * Part I : Basics  
 *Server configuration, Ionic client, add, delete, list notes*
 
-* Part II : Better code and functionnalities  
+* Part II : Improving code quality
 *Server improvements, service use, delete multiple notes at once*
+
+* Part III : Auth simple discovery
+*Auth simple service, handle authentication on client*
 
 ## ZetaPush description ##
 
