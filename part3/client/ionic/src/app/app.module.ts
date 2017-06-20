@@ -37,7 +37,7 @@ import { UsersApiProvider } from '../api/users-api.service';
     UsersApiProvider,
     NotesManager,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    { provide: ZetaPushClientConfig, useValue: {sandboxId: '7gN79Qmz'} }
+    { provide: ZetaPushClientConfig, useValue: {sandboxId: '<yourSandboxId>'} }
   ]
 })
 export class AppModule {}
