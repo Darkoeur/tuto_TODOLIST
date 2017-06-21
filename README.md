@@ -18,3 +18,14 @@ Each part of the tutorial matches a folder *partX/* including two sub-folders, *
 
 ZetaPush provides many out of the box services such as authentication or file gestion to save time on development.  
 All you need to start is a free sandbox which will allow you to deploy your code & services.
+
+## Screenshots ##
+
+![alt text][screenshot_p1]
+![alt text][screenshot_p2]
+![alt text][screenshot_p3]
+
+
+[screenshot_p1]: https://wires.fr/imgs/todolist-part1.png "Screenshot resulting of part 1"
+[screenshot_p2]: https://wires.fr/imgs/todolist-part2.png "Screenshot resulting of part 2"
+[screenshot_p3]: https://wires.fr/imgs/todolist-part3.png "Screenshot resulting of part 3"
