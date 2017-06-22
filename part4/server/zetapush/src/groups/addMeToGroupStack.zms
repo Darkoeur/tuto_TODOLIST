@@ -1,0 +1,13 @@
+// TODO: Complete
+macroscript addMeToGroupStack (
+	/** group id */ string groupId
+) {
+	
+	var userKey = __userKey;
+
+	var { result: {id :  id , member: member } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::addGroupMember({
+		member: __userKey,
+		id: groupId
+	}) hardFail;
+	
+} return { id, member, groups }

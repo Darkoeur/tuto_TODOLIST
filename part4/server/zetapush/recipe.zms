@@ -1,0 +1,44 @@
+/**
+* Recipe com.zetapush.tutorials.todolist.verification
+* Created on Mon Jun 12 11:43:39 CEST 2017 by root
+* Documentation in a source comment for a simple description
+*/
+recipe com.zetapush.tutorials.todolist.verification 1.0.0;
+
+import recipe com.zetapush.core.group 2.0.0 in zpRecipeGroup;
+import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+
+/** Welcome message read from configuration */
+const WELCOME_MESSAGE = @com.zetapush.tutorials.todolist.verification.welcomeMessage;
+
+
+const GROUP_DEFAULT_ID = 'norandomid';
+const GROUP_DEFAULT_NAME = 'GLOBAL_REALM';
+
+
+const GROUP_SERVICE_DEPLOYMENT_ID = 'cr_grp_groups';
+
+const STACK_SERVICE_DEPLOYMENT_ID = 'stack_0';
+
+
+
+/** authentication needed for account creations */
+service authAnonymous = weak(__default);
+
+/** authentication with login/password */
+service auth = simple(__default);
+
+/** macros proposed to client */
+service code = macro(__default) for 'src';
+
+/** stacks service to store notes */
+service stacks = stack(STACK_SERVICE_DEPLOYMENT_ID).forbiddenVerbs(__all);
+
+/** service giving access to the users */
+service users = userdir(__default).forbiddenVerbs(__all);
+
+/** service allowing to create and manipulate groups */
+service groups = groups(GROUP_SERVICE_DEPLOYMENT_ID).options({
+	groups_presence_owner: false,
+	groups_presence_group: false
+}).forbiddenVerbs(__all);

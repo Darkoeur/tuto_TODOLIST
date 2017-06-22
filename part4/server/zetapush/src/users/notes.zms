@@ -1,0 +1,33 @@
+macroscript pushNote (string content = "Nothing") {
+
+	// using the api GroupStack
+	call pushInGroupStack({groupId : GROUP_DEFAULT_ID, note : content}) hardFail;
+	
+	var { result: { notes: notes } } = call getNotes() hardFail;
+	
+} broadcast { notes } on channel __selfName
+
+
+
+macroscript getNotes () {
+
+	var query = call listGroupStack({groupId : GROUP_DEFAULT_ID}) hardFail;
+	var rawNotes = query.result.content;
+	var notes = [];
+	for note in rawNotes {
+			var formated = {id: note.guid, text: note.data.text, author: note.data.author, authorKey: note.data.authorKey};
+			notes = list:add(notes, formated);
+	}
+	
+} broadcast { notes } on channel __selfName
+
+
+
+macroscript deleteNotes (array ids) {
+
+	call removeFromGroupStack({groupId : GROUP_DEFAULT_ID, ids : ids}) hardFail;
+
+	var refresh = call getNotes() hardFail;
+	var notes = refresh.result.notes;
+
+} broadcast { notes } on channel __selfName

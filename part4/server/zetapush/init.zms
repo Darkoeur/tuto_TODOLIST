@@ -1,0 +1,5 @@
+// create the global group and assign it to global owner
+sudo zpRecipeUtils::GLOBAL_OWNER call createGroupAndStack({
+	groupName: GROUP_DEFAULT_NAME,
+	groupId: GROUP_DEFAULT_ID
+});

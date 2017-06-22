@@ -1,0 +1,15 @@
+macroscript grantAccessToGroupStack (
+	/** must be uniq and alpha-numerical */ string groupId
+) {
+
+	var myStackResource =  STACK_SERVICE_DEPLOYMENT_ID + ':' + zpRecipeUtils::GLOBAL_OWNER + ':' + GROUP_DEFAULT_NAME;
+	var stackRights = [Verb_stack_push, Verb_stack_list, Verb_stack_remove];
+
+	groups.grant({
+		resource: myStackResource,
+		group: groupId,
+		action: '*',
+		owner: zpRecipeUtils::GLOBAL_OWNER
+	});
+
+}
