@@ -37,19 +37,6 @@ export class HomePage {
         ionViewDidEnter(): void {
             this.selection = [];
             this.notesManager.getNotes();
-            /*
-            this.zpClient.createService({
-              Type: services.Stack,
-              listener: {
-                push(message) {
-                    console.log('push callback', message)
-                },
-                remove(message) {
-                  console.log('remove callback', message)
-                }
-              }
-          });*/
-
         }
 
         ionViewCanLeave(): boolean{

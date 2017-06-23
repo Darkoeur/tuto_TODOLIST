@@ -257,7 +257,7 @@ export class DoorPage {
                       () => {
                           // Account created
                           this.waitingMsg.dismiss();
-                          this.navCtrl.push(HomePage);
+                          this.submit();
                       },
                       error => {
                           this.waitingMsg.dismiss();
@@ -294,7 +294,8 @@ export class DoorPage {
 }
 ```
 
-Voilà ! Et comme vous l'aurez constaté on gère même le cas où une erreur survient lors de la création du compte !
+Voilà ! Et comme vous l'aurez constaté on gère même le cas où une erreur survient lors de la création du compte ! À vous de voir s'il ne serait pas judicieux de dédier un service à la gestion des erreurs notamment liées aux promesses & observables.  
+
 Cette partie peut paraître un peu longue mais il est intéressant d'observer la proportion de code client par rapport
 à la proportion de code serveur, et ce que facilite Zetapush.  
 De surcroît, on a pu revenir sur une décision assez fondamentale (comment s'authentifier) et cela ne change strictement rien du point

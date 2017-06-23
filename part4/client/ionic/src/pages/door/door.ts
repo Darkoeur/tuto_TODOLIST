@@ -57,7 +57,7 @@ export class DoorPage {
                   () => {
                       // Account created
                       this.waitingMsg.dismiss();
-                      this.navCtrl.push(HomePage);
+                      this.submit();
                   },
                   error => {
                       this.waitingMsg.dismiss();

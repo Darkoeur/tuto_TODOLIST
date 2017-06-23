@@ -15,7 +15,7 @@ macroscript getNotes () {
 	var rawNotes = query.result.content;
 	var notes = [];
 	for note in rawNotes {
-			var formated = {id: note.guid, text: note.data.text, author: note.data.author, authorKey: note.data.authorKey};
+			var formated = {id: note.guid, text: note.data.text, author: note.data.author, authorKey: note.data.authorKey, date: note.data.date};
 			notes = list:add(notes, formated);
 	}
 	
