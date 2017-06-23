@@ -329,7 +329,7 @@ macroscript create (string login, string password) {
 
 ## Côté Client ##
 
-Rassurez-vous, les modifications à effectuer côté client tiennent en quelques lignes, le serveur s'occupant de l'essentiel.
+Rassurez-vous, les modifications à effectuer côté client tiennent en quelques lignes, la logique de celui-ci restant la même.
 
 ```javascript
 // api/notes-api.service.ts
