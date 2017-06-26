@@ -11,9 +11,9 @@ Une TODO liste est un exemple parfait pour faire ses premiers pas avec ZetaPush,
 Dans un premier temps nous allons nous concentrer sur un ensemble restreint de possibilités :
 * ajouter une note
 * supprimer une note
-* supprimer toutes les notes  
+* supprimer toutes les notes
 
-## Prérequis ##
+## Prérequis ##
 
 Dans ce tutoriel, nous avons besoin d'*Eclipse*, d'*Angular* et d'*Ionic 2* donc veuillez les installer si nécessaire.
 
@@ -38,7 +38,7 @@ Le fichier *recipe.zms* indique les différents services utilisés par le projet
 
 Le fichier *init.zms* utilise ainsi le service d'authentification simple pour créer un utilisateur de test, avec les informations fournies dans le fichier *zms.properties*. Supprimons à présent le fichier *init.zms*, et changeons le type d'authentification de simple à weak. Pour cela rien de plus simple :
 
-Il suffit de remplacer `service auth = simple(__default);` par `service auth = weak(__default);` !
+Il suffit de remplacer `service auth = simple(__default);` par `service authAnonymous = weak(__default);` !
 
 **L'authentification weak consiste en une authentification anonyme, le client se connecte à ZetaPush sans identifiant, un token lui est transmis en retour qu'il doit alors mémoriser. La perte de ce token équivaudrait inévitablement à la perte des données qui lui sont associées.**
 

@@ -141,7 +141,7 @@ Dans le répertoire *src/* on va créer une macro dans un nouveau fichier, qui p
 macroscript create(string login, string password) {
 
     var user = auth.createUser({
-		'login': name,
+		'login': login,
 		'password': password
 	});
 
@@ -186,7 +186,7 @@ export const UsersApiProvider = {
 On va pouvoir s'en servir dans un nouveau service similaire au service *NotesManager* !  
 Création avec `> ionic generate provider users-handler`, puis on notifie *AppModule* de l'existence de notre nouveau service (traduction: on l'importe et on l'ajoute à ses providers).
 
-Voici ci-dessous le code final du service *UsersHandler*.  
+Voici ci-dessous le code final du service *UsersHandlerProvider*.  
 
 ```javascript
 // fichier providers/users-handler.ts
@@ -194,7 +194,7 @@ import { Injectable } from '@angular/core';
 import { UsersApi } from '../api/users-api.service';
 
 @Injectable()
-export class UsersHandler {
+export class UsersHandlerProvider {
 
   constructor(private api: UsersApi) { }
 
@@ -209,24 +209,22 @@ Et ensuite on utilise celui-ci au sein de *DoorPage*.
 
 ```javascript
 ...
-import { UsersHandler } from '../../providers/users-handler';
+import { UsersHandlerProvider } from '../../providers/users-handler';
 import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
-    selector: 'page-door', templateUrl: 'door.html', providers: [UsersHandler]
+    selector: 'page-door', templateUrl: 'door.html', providers: [UsersHandlerProvider]
 })
 export class DoorPage {
 
     ...
 
-    constructor(private usersHandler: UsersHandler, ...) { }
+    constructor(private usersHandler: UsersHandlerProvider, ...) { }
 
     ...
 
       submit(): void {
-
-          this.password = '';
 
           this.waitingMsg = this.loadingCtrl.create({
               content: 'Communicating with server...'
@@ -301,7 +299,7 @@ Cette partie peut paraître un peu longue mais il est intéressant d'observer la
 De surcroît, on a pu revenir sur une décision assez fondamentale (comment s'authentifier) et cela ne change strictement rien du point
 de vue de la gestion des notes.
 
-Petit détail mais qui a son importance, pensez à changer le **ngOnInit()** de *HomePage* ;)
+Petit détail mais qui a son importance, pensez à remplacer le **ngOnInit()** de *HomePage* par le code suivant ;)
 
 ```javascript
 ionViewDidEnter(): void {

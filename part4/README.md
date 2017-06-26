@@ -308,7 +308,7 @@ macroscript deleteNotes (array ids) {
 } broadcast { notes } on channel __selfName
 ```
 
-Toute dernière modification côté serveur : à la création, ajouter le nouvel utilisateur au groupe global.
+Dernières modifications côté serveur : à la création, ajouter le nouvel utilisateur au groupe global.
 
 ```javascript
 // fichier src/users/create.zms
@@ -326,6 +326,19 @@ macroscript create (string login, string password) {
 
 } return {user} on channel __selfName
 ```
+
+Au démarrage du serveur, créé un groupe et un stack global, pour cela remplacer le contenu de *init.zms* par :
+
+```javascript
+// create the global group and assign it to global owner
+sudo zpRecipeUtils::GLOBAL_OWNER call createGroupAndStack({
+	groupName: GROUP_DEFAULT_NAME,
+	groupId: GROUP_DEFAULT_ID
+});
+// with constants initialized in recipe.zms
+```
+
+**Déployer** les services puis les macros permet de rendre le backend fonctionnel.
 
 ## Côté Client ##
 
@@ -372,4 +385,4 @@ i {
 }
 ```
 
-Fini ! Cette partie permet de présenter de multiples aspects de ZetaPush, que ce soit l'import de recette, le système de permissions et d'utilisateurs, etc...
+Fini ! Cette partie permet de présenter de multiples aspects de ZetaPush, que ce soit l'import de recette, ou bien le système de permissions, d'utilisateurs, etc...

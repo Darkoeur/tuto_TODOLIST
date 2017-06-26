@@ -52,16 +52,16 @@ Voici pour rappel l'arborescence du src de notre client et plus particulièremen
 +-- theme/
 ```
 
-Utilisons la commande `> ionic generate provider notes-manager` pour inscrire un nouveau service injectable à notre application. Il en résulte un nouveau fichier *src/providers/notes-manager.ts* ainsi qu'une modification du fichier *src/app/app.module.ts* pour pouvoir injecter le service NotesManager dans nos composants.
+Utilisons la commande `> ionic generate provider notes-manager` pour inscrire un nouveau service injectable à notre application. Il en résulte un nouveau fichier *src/providers/notes-manager.ts* ainsi qu'une modification du fichier *src/app/app.module.ts* pour pouvoir injecter le service NotesManagerProvider dans nos composants. *Selon la version d'Ionic, un dossier intermédiaire notes-manager/ peut avoir été créé.*
 
 Faisons le bilan de l'état actuel du composant *HomePage*.
 * À la construction, on subscribe aux différents observables renvoyés par NotesApi.
 * À l'initialisation, lorsqu'on réussit à se connecter à ZetaPush, on demande au serveur les notes existantes.
 * Enfin suite aux actions de l'utilisateur on effectue des appels à NotesApi.
 
-À présent on va sortir toute cette logique du composant *HomePage*, pour l'attribuer à notre service nouvellement créé : *NotesManager*.
+À présent on va sortir toute cette logique du composant *HomePage*, pour l'attribuer à notre service nouvellement créé : *NotesManagerProvider*.
 
-### NotesManager, pour un code plus propre ###
+### NotesManagerProvider, pour un code plus propre ###
 
 Voici le code de *src/providers/notes-manager.ts* que je détaillerai juste après.
 
@@ -74,7 +74,7 @@ import { Note, NotesApi } from '../api/notes-api.service';
 
 
 @Injectable()
-export class NotesManager implements OnDestroy {
+export class NotesManagerProvider implements OnDestroy {
 
     // Using a Subject to subscribe and emit values
     private _notes: BehaviorSubject<Array<Note>> = new BehaviorSubject([]);
@@ -128,7 +128,7 @@ export class NotesManager implements OnDestroy {
 }
 ```
 
-*NotesApi* permet d'interagir avec le serveur à un niveau très bas. Jusqu'à présent c'est ce service dont se servait *HomePage*, à présent *HomePage* devra utiliser le service *NotesManager*, qui se chargera à son tour de recourir à *NotesApi*.
+*NotesApi* permet d'interagir avec le serveur à un niveau très bas. Jusqu'à présent c'est ce service dont se servait *HomePage*, à présent *HomePage* devra utiliser le service *NotesManagerProvider*, qui se chargera à son tour de recourir à *NotesApi*.
 
 Il est légitime de se demander pourquoi, et le code une fois mis à niveau de *src/pages/home/home.ts* sera un premier élément de réponse.
 ```javascript
@@ -136,13 +136,13 @@ Il est légitime de se demander pourquoi, et le code une fois mis à niveau de *
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, Platform } from 'ionic-angular';
 import { ZetaPushConnection } from 'zetapush-angular';
-import { NotesManager } from '../../providers/notes-manager';
+import { NotesManagerProvider } from '../../providers/notes-manager';
 import { Note } from '../../api/notes-api.service';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [NotesManager]
+  providers: [NotesManagerProvider]
 })
 export class HomePage implements OnInit {
 
@@ -153,7 +153,7 @@ export class HomePage implements OnInit {
         public alertCtrl: AlertController,
         private platform: Platform,
         private zpConnection: ZetaPushConnection,
-        private notesManager: NotesManager) {
+        private notesManager: NotesManagerProvider) {
 
             this.notesManager.notes.subscribe(
                 notes => {
