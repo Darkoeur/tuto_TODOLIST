@@ -30,4 +30,5 @@ macroscript reset () {
 
 	stacks.purge({stack : 'TODO'});
 
+// we won't need the server response after calling the reset macro
 } return {}

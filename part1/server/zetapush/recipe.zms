@@ -1,19 +1,18 @@
 /**
-* Recipe com.zetapush.tutorials.todolist.verification
-* Created on Mon Jun 12 11:43:39 CEST 2017 by root
+* Recipe zetapush.todolist.test
+* Created on Tue Jun 27 09:08:50 CEST 2017 by root
 * Documentation in a source comment for a simple description
 */
-recipe com.zetapush.tutorials.todolist.verification 1.0.0;
+recipe zetapush.todolist.test 1.0.0;
 
 /** Welcome message read from configuration */
-const WELCOME_MESSAGE = @com.zetapush.tutorials.todolist.verification.welcomeMessage;
+const WELCOME_MESSAGE = @zetapush.todolist.test.welcomeMessage;
 
 
 /** a simple authentication service */
-service auth = weak(__default);
+service authAnonymous = weak(__default);
 
 /** our code is run by this service */
 service code = macro(__default) for 'src';
 
 service stacks = stack(__default);
-
