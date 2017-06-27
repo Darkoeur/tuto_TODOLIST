@@ -1,3 +1,3 @@
-### README for com.zetapush.tutorials.todolist.verification
+### README for zetapush.todolist.test
 
 Documentation in markdown format for a comprehensive description

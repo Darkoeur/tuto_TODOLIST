@@ -3,44 +3,43 @@ macroscript createGroupAndStack (
 	/** must be uniq and alpha-numerical */ string groupId,
 	/** alpha-numerical */ string groupName
 ) {
-	
+
 	// group creation
-	
+
 	var group = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::createGroup({
 		id: groupId,
 		name: groupName
 	}) hardFail;
-	
-	
+
+
 	// stack creation
-	
+
 	var firstNote = {
 		text: 'Amusez-vous bien !',
 		date: time:now(),
 		author: 'Creator',
 		authorKey: zpRecipeUtils::GLOBAL_OWNER
 	};
-	
+
 	sudo zpRecipeUtils::GLOBAL_OWNER stacks.purge({
 		stack: groupName
 	});
-	
+
 	var stack = sudo zpRecipeUtils::GLOBAL_OWNER stacks.push({
 		stack: groupName,
 		data: firstNote
 	});
-	
+
 	// linking stack and group together thanks to listeners
-	
+
 	var groupKey = GROUP_SERVICE_DEPLOYMENT_ID + ':' + zpRecipeUtils::GLOBAL_OWNER + ':' + groupName;
 	var listeners = sudo zpRecipeUtils::GLOBAL_OWNER stacks.setListeners({
 		listeners : [groupKey],
 		stack : groupName
 	});
-	
-	// grant access to stack
-	
-	var grant = sudo zpRecipeUtils::GLOBAL_OWNER call grantAccessToGroupStack({groupId : groupId}) hardFail;
-	
-} return {  }
 
+	// grant access to stack
+
+	var grant = sudo zpRecipeUtils::GLOBAL_OWNER call grantAccessToGroupStack({groupId : groupId}) hardFail;
+
+} return { }

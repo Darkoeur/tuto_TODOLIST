@@ -10,5 +10,4 @@ macroscript grantAccessToGroupStack (
 		action: '*',
 		owner: zpRecipeUtils::GLOBAL_OWNER
 	});
-
 }

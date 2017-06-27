@@ -1,11 +1,11 @@
-macroscript create (string login, string password) {
-	
-	var user = auth.createUser({
+macroscript create(string login, string password) {
+
+    var user = auth.createUser({
 		'login': login,
 		'password': password
 	});
 	
 	//  Registration of the new user to global group
 	sudo user.zetapushKey call addMeToGroupStack({groupId: GROUP_DEFAULT_ID});
-	
+
 } return {user} on channel __selfName

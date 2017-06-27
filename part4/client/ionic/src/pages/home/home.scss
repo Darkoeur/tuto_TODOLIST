@@ -9,12 +9,15 @@
 #addButton { bottom: 90px; }
 #refreshButton { bottom: 160px; }
 
+
 .notSelected {
-    display: none;
+    visibility: hidden;
 }
+
 
 .faded {
     opacity: 0.2;
+    /* no transition */
 }
 
 i {
