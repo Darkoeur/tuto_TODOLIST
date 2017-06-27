@@ -52,7 +52,7 @@ Voici pour rappel l'arborescence du src de notre client et plus particulièremen
 +-- theme/
 ```
 
-Utilisons la commande `> ionic generate provider notes-manager` pour inscrire un nouveau service injectable à notre application. Il en résulte un nouveau fichier *src/providers/notes-manager.ts* ainsi qu'une modification du fichier *src/app/app.module.ts* pour pouvoir injecter le service NotesManagerProvider dans nos composants. *Selon la version d'Ionic, un dossier intermédiaire notes-manager/ peut avoir été créé.*
+Utilisons la commande `> ionic generate provider notes-manager` pour inscrire un nouveau service injectable à notre application. Il en résulte un nouveau fichier *src/providers/notes-manager/notes-manager.ts* qu'il vous faudra rendre injectable en l'ajoutant aux providers de *app.module.ts*. *Le chemin peut être différent selon la version d'Ionic utilisée*
 
 Faisons le bilan de l'état actuel du composant *HomePage*.
 * À la construction, on subscribe aux différents observables renvoyés par NotesApi.
@@ -63,14 +63,14 @@ Faisons le bilan de l'état actuel du composant *HomePage*.
 
 ### NotesManagerProvider, pour un code plus propre ###
 
-Voici le code de *src/providers/notes-manager.ts* que je détaillerai juste après.
+Voici le code de *src/providers/notes-manager/notes-manager.ts* que je détaillerai juste après.
 
 ```javascript
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
-import { Note, NotesApi } from '../api/notes-api.service';
+import { Note, NotesApi } from '../../api/notes-api.service';
 
 
 @Injectable()
@@ -130,13 +130,13 @@ export class NotesManagerProvider implements OnDestroy {
 
 *NotesApi* permet d'interagir avec le serveur à un niveau très bas. Jusqu'à présent c'est ce service dont se servait *HomePage*, à présent *HomePage* devra utiliser le service *NotesManagerProvider*, qui se chargera à son tour de recourir à *NotesApi*.
 
-Il est légitime de se demander pourquoi, et le code une fois mis à niveau de *src/pages/home/home.ts* sera un premier élément de réponse.
+Pour ce faire on modifie le fichier *src/pages/home/home.ts*.
 ```javascript
 
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, Platform } from 'ionic-angular';
 import { ZetaPushConnection } from 'zetapush-angular';
-import { NotesManagerProvider } from '../../providers/notes-manager';
+import { NotesManagerProvider } from '../../providers/notes-manager/notes-manager';
 import { Note } from '../../api/notes-api.service';
 
 @Component({
@@ -229,7 +229,7 @@ Les *console.log* permettent de retracer dans la console du navigateur le foncti
 
 ### Ajout de fonctionnalité ###
 
-Ajoutons un attribut `selection: Array<Note> = [];` au composant *HomePage*, et créons deux fonctions pour respectivement sélectionner une note et savoir si une note est sélectionnée.
+Ajoutons un attribut `selection: Array<Note> = [];` au composant *HomePage* juste à côté de l'attribut notes existant déjà, et créons deux fonctions pour respectivement sélectionner une note et savoir si une note est sélectionnée.
 
 ```javascript
 userSelect(note: Note){

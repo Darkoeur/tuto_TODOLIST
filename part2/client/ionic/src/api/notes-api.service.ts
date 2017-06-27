@@ -1,9 +1,8 @@
-// fichier src/api/notes-api.service.ts
 import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Api, ZetaPushClient, createApi } from 'zetapush-angular';
 
-// représentation d'une note
+// The note representation
 export interface Note {
     id: string,
     text: string
