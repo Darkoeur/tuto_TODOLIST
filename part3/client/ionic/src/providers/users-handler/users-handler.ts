@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { UsersApi } from '../api/users-api.service';
+import { UsersApi } from '../../api/users-api.service';
 
 @Injectable()
-export class UsersHandler {
+export class UsersHandlerProvider {
 
   constructor(private api: UsersApi) { }
 
@@ -10,5 +10,4 @@ export class UsersHandler {
   createAccount(loginWanted: string, passwordWanted: string): Promise<any> {
       return this.api.create({login: loginWanted, password: passwordWanted});
   }
-
 }

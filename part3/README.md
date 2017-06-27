@@ -60,7 +60,7 @@ Puis développons les attributs associés aux inputs (**login** et **password**)
 La fonction *submit()* souhaitant établir une connexion à Zetapush, il faut rajouter `import { ZetaPushConnection } from 'zetapush-angular';` dans l'en-tête du composant.
 
 ```javascript
-// pages/door/door.ts
+// pages/door-page/door-page.ts
 ...
     login: string;
     password: string;
@@ -189,9 +189,9 @@ Création avec `> ionic generate provider users-handler`, puis on notifie *AppMo
 Voici ci-dessous le code final du service *UsersHandlerProvider*.  
 
 ```javascript
-// fichier providers/users-handler.ts
+// fichier providers/users-handler/users-handler.ts
 import { Injectable } from '@angular/core';
-import { UsersApi } from '../api/users-api.service';
+import { UsersApi } from '../../api/users-api.service';
 
 @Injectable()
 export class UsersHandlerProvider {
@@ -208,86 +208,98 @@ export class UsersHandlerProvider {
 Et ensuite on utilise celui-ci au sein de *DoorPage*.
 
 ```javascript
-...
-import { UsersHandlerProvider } from '../../providers/users-handler';
+// complete code
+import { Component } from '@angular/core';
+import { IonicPage, NavController, AlertController, LoadingController } from 'ionic-angular';
+import { ZetaPushConnection } from 'zetapush-angular';
+import { UsersHandlerProvider } from '../../providers/users-handler/users-handler';
 import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
-    selector: 'page-door', templateUrl: 'door.html', providers: [UsersHandlerProvider]
+    selector: 'page-door-page',
+    templateUrl: 'door-page.html',
+    providers: [UsersHandlerProvider]
 })
 export class DoorPage {
 
-    ...
+    login: string;
+    password: string;
+    waitingMsg: any;
 
-    constructor(private usersHandler: UsersHandlerProvider, ...) { }
+    constructor(private usersHandler: UsersHandlerProvider,
+                private zp: ZetaPushConnection,
+                public loadingCtrl: LoadingController,
+                public alertCtrl: AlertController,
+                public navCtrl: NavController) { }
 
-    ...
+    notCompleted(): boolean {
+        return (!this.login || !this.password);
+    }
 
-      submit(): void {
+    submit(): void {
+        this.waitingMsg = this.loadingCtrl.create({
+            content: 'Communicating with server...'
+        });
+        this.waitingMsg.present();
 
-          this.waitingMsg = this.loadingCtrl.create({
-              content: 'Communicating with server...'
-          });
-          this.waitingMsg.present();
+        if(!this.notCompleted()){
+            this.zp.connect({login: this.login, password: this.password}).then(
+                () => {
+                    // Success
+                    this.waitingMsg.dismiss();
+                    this.navCtrl.push(HomePage);
+                },
+                error => {
+                    // Failure, account may not exist yet
+                    this.createAccount();
+                }
+            );
+        }
+    }
 
-          if(!this.notCompleted()){
-              this.zp.connect({login: this.login, password: this.password}).then(
-                  () => {
-                      // Success
-                      this.waitingMsg.dismiss();
-                      this.navCtrl.push(HomePage);
-                  },
-                  error => {
-                      // Failure, account may not exist yet
-                      this.createAccount();
-                  }
-              );
-          }
-      }
+    private createAccount(): void {
+        this.zp.connect().then(
+            () => {
+                // As we're connected anonymously
+                // We have the right to execute macros on server
+                this.usersHandler.createAccount(this.login, this.password).then(
+                    () => {
+                        // Account created
+                        this.waitingMsg.dismiss();
+                        this.submit();
+                    },
+                    error => {
+                        this.waitingMsg.dismiss();
+                        this.show(error[0]);
+                    }
+                );
 
-      private createAccount(): void {
-          this.zp.connect().then(
-              () => {
-                  // As we're connected anonymously
-                  // We have the right to execute macros on server
-                  this.usersHandler.createAccount(this.login, this.password).then(
-                      () => {
-                          // Account created
-                          this.waitingMsg.dismiss();
-                          this.submit();
-                      },
-                      error => {
-                          this.waitingMsg.dismiss();
-                          this.show(error[0]);
-                      }
-                  );
+            },
+            error => {
+                // Should not happen except if server error
+            }
+        );
+    }
 
-              },
-              error => {
-                  // Should not happen except if server error
-              }
-          );
-      }
+    private show(error): void {
 
-      private show(error): void {
+        let msg = 'Le serveur n\'a pas pu créer le compte.';
 
-          let msg = 'Le serveur n\'a pas pu créer le compte.';
+        switch(error.code) {
+            case 'ACCOUNT_EXISTS':
+            msg = 'Mauvais mot de passe !';
+            break;
+        }
 
-          switch(error.code) {
-              case 'ACCOUNT_EXISTS':
-                    msg = 'Mauvais mot de passe !';
-                    break;
-          }
+        let alertMsg = this.alertCtrl.create({
+            title: error.code,
+            subTitle: msg,
+            buttons: ['OK']
+        });
 
-          let alertMsg = this.alertCtrl.create({
-             title: error.code,
-             subTitle: msg,
-             buttons: ['OK']
-          });
-
-          alertMsg.present();
-      }
+        alertMsg.present();
+    }
 
 }
 ```

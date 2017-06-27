@@ -4,14 +4,15 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { ZetaPushClientConfig, ZetaPushModule } from 'zetapush-angular';
+
+import { NotesApiProvider } from '../api/notes-api.service';
+import { NotesManagerProvider } from '../providers/notes-manager/notes-manager';
+import { UsersApiProvider } from '../api/users-api.service';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { DoorPage } from '../pages/door/door';
-
-import { ZetaPushClientConfig, ZetaPushModule } from 'zetapush-angular';
-import { NotesManager } from '../providers/notes-manager';
-import { NotesApiProvider } from '../api/notes-api.service';
-import { UsersApiProvider } from '../api/users-api.service';
+import { DoorPage } from '../pages/door-page/door-page';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,8 @@ import { UsersApiProvider } from '../api/users-api.service';
   ],
   imports: [
     BrowserModule,
-    ZetaPushModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    ZetaPushModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,11 +34,11 @@ import { UsersApiProvider } from '../api/users-api.service';
   providers: [
     StatusBar,
     SplashScreen,
-    NotesApiProvider,
-    UsersApiProvider,
-    NotesManager,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    { provide: ZetaPushClientConfig, useValue: {sandboxId: '<yourSandboxId>'} }
+    {provide: ZetaPushClientConfig, useValue: {sandboxId: '< YOUR SANDBOX ID >'}},
+    NotesApiProvider,
+    NotesManagerProvider,
+    UsersApiProvider
   ]
 })
 export class AppModule {}

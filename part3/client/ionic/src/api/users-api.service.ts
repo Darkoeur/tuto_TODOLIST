@@ -1,4 +1,3 @@
-// fichier src/api/users-api.service.ts
 import { NgZone } from '@angular/core';
 import { Api, ZetaPushClient, createApi } from 'zetapush-angular';
 
@@ -6,7 +5,7 @@ export class UsersApi extends Api {
 
 	// Names MUST match the macros on server
 
-	create({login, password}:  { login: string, password: string}): Promise<any> {
+	create({login, password}: { login: string, password: string}): Promise<any> {
 		return this.$publish('create', {login, password});
 	}
 

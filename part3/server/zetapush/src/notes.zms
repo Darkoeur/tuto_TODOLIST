@@ -1,15 +1,12 @@
 macroscript pushNote (string content = "Nothing") {
 
 	var insertion = stacks.push({stack : 'TODO', data : {text:content}});
-	var note = {
-		id: insertion.guid,
-		text: content
-	};
 	
-	var refresh = call getNotes();
-	var notes = refresh.result.notes;
-	
-} broadcast {notes} on channel __selfName
+	var macroResult = call getNotes();
+	var notes = macroResult.result.notes;
+
+
+} broadcast { notes } on channel __selfName
 
 
 
@@ -22,25 +19,14 @@ macroscript getNotes () {
 			var formated = {id: note.guid, text: note.data.text};
 			notes = list:add(notes, formated);
 	}
-	trace(query);
-	
-} broadcast {notes} on channel __selfName
 
-
+} return {notes} on channel __selfName
 
 macroscript deleteNotes (array ids) {
 
 	stacks.remove({stack : 'TODO', guids: ids});
-
-	var refresh = call getNotes();
-	var notes = refresh.result.notes;
-
-} broadcast {notes} on channel __selfName
+	var macroResult = call getNotes();
+	var notes = macroResult.result.notes;
 
 
-
-macroscript reset () {
-
-	stacks.purge({stack : 'TODO'});
-
-}
+} broadcast { notes } on channel __selfName

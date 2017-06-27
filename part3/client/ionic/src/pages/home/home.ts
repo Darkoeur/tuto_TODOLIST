@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, Platform } from 'ionic-angular';
 import { ZetaPushConnection } from 'zetapush-angular';
-import { NotesManager } from '../../providers/notes-manager';
+import { NotesManagerProvider } from '../../providers/notes-manager/notes-manager';
 import { Note } from '../../api/notes-api.service';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [NotesManager]
+  providers: [NotesManagerProvider]
 })
 export class HomePage {
 
@@ -19,11 +19,13 @@ export class HomePage {
         public alertCtrl: AlertController,
         private platform: Platform,
         private zpConnection: ZetaPushConnection,
-        private notesManager: NotesManager) {
+        private notesManager: NotesManagerProvider) {
+
+            this.selection = [];
 
             this.notesManager.notes.subscribe(
                 notes => {
-                    console.log('Well received captain ! ', notes);
+                    console.log('The proxy sent us something : ', notes);
                     this.notes = notes;
                 },
                 error => { console.log(error) }
@@ -36,11 +38,6 @@ export class HomePage {
             this.notesManager.getNotes();
         }
 
-        ionViewCanLeave(): boolean{
-            return true;
-        }
-
-        // functions user will trigger with buttons
         userAddNote() {
             let form = this.alertCtrl.create({
                 title : 'Add a note',
@@ -74,14 +71,22 @@ export class HomePage {
                 var ids = this.selection.map(note => note.id);
                 this.notesManager.deleteNotes(ids);
             } else {
-                this.notesManager.resetNotes();
-                this.notes = [];
+                var ids = this.notes.map(note => note.id);
+                this.notesManager.deleteNotes(ids);
             }
         }
 
         userRefresh() {
             this.notesManager.getNotes();
         }
+
+        userDelete(deleted : Note) {
+            var ids = [];
+            ids.push(deleted.id);
+            this.notesManager.deleteNotes(ids);
+        }
+
+        // New functionnality : select a note
 
         userSelect(note: Note){
 

@@ -1,8 +1,0 @@
-macroscript create (string login, string password) {
-	
-	var user = auth.createUser({
-		'login': login,
-		'password': password
-	});
-	
-} return {user} on channel __selfName

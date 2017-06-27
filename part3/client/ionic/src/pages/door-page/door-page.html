@@ -1,0 +1,28 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Bienvenue</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-list no-padding>
+
+        <ion-item>
+            <ion-label stacked>Login</ion-label>
+            <ion-input [(ngModel)]="login" type="text" placeholder="ex : Gaspard"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked>Password</ion-label>
+            <ion-input [(ngModel)]="password" type="password" placeholder="ex: easypassword123"></ion-input>
+        </ion-item>
+
+        <button (click)="submit()" [disabled]="notCompleted()" ion-button full large color="primary">ENTRER</button>
+
+    </ion-list>
+
+</ion-content>
