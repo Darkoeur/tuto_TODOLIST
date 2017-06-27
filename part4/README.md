@@ -28,8 +28,8 @@ Actuellement notre répertoire *src/* contient deux fichiers, *welcome.zms* et *
 Renommez *welcome.zms* en *notes.zms* et *userCreation.zms* en *create.zms* puis placez ces deux fichiers dans un répertoire *src/users/* qu'il vous faudra créer au préalable.
 Créez également un répertoire *src/groups/*.
 
-Désormais nous devrions avoir sous Eclipse une arborescence comme celle-ci :
-<div style="text-align:center;">![alt text][screenshot_arborescence]</div>
+Désormais nous devrions avoir sous Eclipse une arborescence comme celle-ci :  
+![alt text][screenshot_arborescence]
 
 Donnons accès à la recette Group et à la recette Utils. Pour cela deux étapes, *clic droit sur notre projet > Properties > Project References > cochez les deux recettes* La seconde étape consiste à les importer dans notre *recipe.zms*.
 
