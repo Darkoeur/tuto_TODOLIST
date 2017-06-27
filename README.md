@@ -14,7 +14,7 @@ Each part of the tutorial matches a folder *partX/* including two sub-folders, *
 * Part III : Auth simple discovery  
 *Auth simple service, handle authentication on client*
 
-* Part IV : Sharing todolist across users
+* Part IV : Sharing todolist across users  
 *Creation of a server API, minor client adjustments*
 
 ## ZetaPush description ##
